@@ -1,14 +1,16 @@
-class Fermer extends LivingCreature {
+let LivingCreature = require('./LivingCreature')
+
+module.exports = class Fermer extends LivingCreature {
     constructor(x, y) {
         super(x,y);
         this.multiply = 0
     }
 
     move() {
-        var emptyCells = this.chooseCell(0)
+        var emptyCells = super.chooseCell(0);
         var newCell = emptyCells[Math.floor(Math.random() * emptyCells.length)]
 
-        var emptyCells1 = this.chooseCell(1)
+        var emptyCells1 = super.chooseCell(1);
         var newCell1 = emptyCells1[Math.floor(Math.random() * emptyCells1.length)]
         if (newCell && this.energy >= 0) {
             var newX = newCell[0]
@@ -28,7 +30,7 @@ class Fermer extends LivingCreature {
     }
 
     grPrRespawn() {
-        var emptyCells = this.chooseCell(0)
+        var emptyCells = super.chooseCell(0);
         var newCell = emptyCells[Math.floor(Math.random() * emptyCells.length)]
 
         if (newCell && grassArr.length < 10) {
