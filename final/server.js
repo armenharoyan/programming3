@@ -59,17 +59,17 @@ function generator(matLen, gr, grEat, pr, fer, fer1) {
     return matrix;
 }
 
-var matrix = generator(30, 300, 50, 50, 1, 1)
+ matrix = generator(30, 300, 50, 50, 1, 1)
 
 
 io.sockets.emit('send matrix', matrix)
 
 
-var grassArr = [];
-var grassEaterArr = [];
-var predatorArr = [];
-var fermerArr = [];
-var fermer1Arr = [];
+ grassArr = [];
+ grassEaterArr = [];
+ predatorArr = [];
+ fermerArr = [];
+ fermer1Arr = [];
 
 Grass = require("./Grass")
 GrassEater = require("./GrassEater")
@@ -128,7 +128,7 @@ function game() {
     io.sockets.emit("send matrix", matrix);
 }
 
-setInterval(game, 400)
+setInterval(game, 200)
 
 io.on('connection', function () {
     create_object(matrix)

@@ -1,7 +1,7 @@
 var socket = io();
 var side = 20;
 function setup() {
-    createCanvas(7 * side, 13 * side);
+    createCanvas(30 * side, 30 * side);
     background("#acacac");
 }
 
