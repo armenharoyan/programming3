@@ -59,17 +59,17 @@ function generator(matLen, gr, grEat, pr, fer, fer1) {
     return matrix;
 }
 
- matrix = generator(30, 300, 50, 50, 1, 1)
+matrix = generator(30, 0, 10, 10, 1, 1)
 
 
 io.sockets.emit('send matrix', matrix)
 
 
- grassArr = [];
- grassEaterArr = [];
- predatorArr = [];
- fermerArr = [];
- fermer1Arr = [];
+grassArr = [];
+grassEaterArr = [];
+predatorArr = [];
+fermerArr = [];
+fermer1Arr = [];
 
 Grass = require("./Grass")
 GrassEater = require("./GrassEater")
@@ -128,8 +128,77 @@ function game() {
     io.sockets.emit("send matrix", matrix);
 }
 
-setInterval(game, 200)
+function spawnGr() {
+    for (var i = 0; i <= 10; i++) {
+        var x = Math.floor(Math.random() * matrix.length)
+        var y = Math.floor(Math.random() * matrix.length)
+        if (matrix[y][x] == 0) {
+            matrix[y][x] = 1
+            grassArr.push(new Grass(x, y, 1))
+        }
+    }
+    io.sockets.emit("send matrix", matrix);
+}
 
-io.on('connection', function () {
-    create_object(matrix)
+function spawnGrEater() {
+    for (var i = 0; i <= 10; i++) {
+        var x = Math.floor(Math.random() * matrix.length)
+        var y = Math.floor(Math.random() * matrix.length)
+        if (matrix[y][x] == 0 || matrix[y][x] == 1) {
+            matrix[y][x] = 2
+            grassEaterArr.push(new GrassEater(x, y, 2));
+        }
+    }
+    io.sockets.emit("send matrix", matrix);
+}
+
+function spawnPred() {
+    for (var i = 0; i <= 10; i++) {
+        var x = Math.floor(Math.random() * matrix.length)
+        var y = Math.floor(Math.random() * matrix.length)
+        if (matrix[y][x] == 5 || matrix[y][x] == 0) {
+            matrix[y][x] = 3
+            predatorArr.push(new Predator(x, y, 3));
+        }
+    }
+    io.sockets.emit("send matrix", matrix);
+}
+
+function killPred() {
+    for (var i = 0; i <= 10; i++) {
+        var x = Math.floor(Math.random() * matrix.length)
+        var y = Math.floor(Math.random() * matrix.length)
+        if (matrix[y][x] == 3) {
+            matrix[y][x] = 0
+            predatorArr[i].die();
+
+        }
+    }
+    io.sockets.emit("send matrix", matrix);
+}
+
+function killGrEater() {
+    for (var i = 0; i <= 10; i++) {
+        var x = Math.floor(Math.random() * matrix.length)
+        var y = Math.floor(Math.random() * matrix.length)
+        if (matrix[y][x] == 2) {
+            matrix[y][x] = 0
+            grassEaterArr[i].die();
+
+        }
+    }
+    io.sockets.emit("send matrix", matrix);
+}
+
+
+
+
+setInterval(game, 200)
+io.on('connection', function (socket) {
+    create_object(matrix);
+    socket.on('spawnGr', spawnGr);
+    socket.on('spawnGrEater', spawnGrEater);
+    socket.on('spawnPr', spawnPred);
+    socket.on('killPr', killPred);
+    socket.on('killGrEat', killGrEater);
 })

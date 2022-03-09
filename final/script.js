@@ -1,10 +1,9 @@
 var socket = io();
-var side = 20;
+var side = 10;
 function setup() {
     createCanvas(30 * side, 30 * side);
     background("#acacac");
 }
-
 function nkarel(matrix) {
 
     for (var y = 0; y < matrix.length; y++) {
@@ -35,10 +34,35 @@ function nkarel(matrix) {
             }
         }
     }
- }
+}
 
 setInterval(
     function () {
-    socket.on('send matrix', nkarel)
-    },400
+        socket.on('send matrix', nkarel)
+    }, 400
 )
+
+
+
+function spawnGr() {
+    socket.emit('spawnGr');
+}
+
+function spawnGrEater() {
+    socket.emit('spawnGrEater');
+}
+
+function spawnPr() {
+    socket.emit('spawnPr');
+}
+
+function killPr() {
+    socket.emit('killPr');
+}
+
+function killGrEat() {
+    socket.emit('killGrEat');
+}
+
+
+

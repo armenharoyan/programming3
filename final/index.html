@@ -1,15 +1,27 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
 	<script src="socket.io/socket.io.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.14/p5.js"></script>
 	<script src="script.js"></script>
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
+
 <body>
+	<h1>The Game Of Life</h1>
+	<h3>control buttons</h3>
+	<div>
+		<button onclick="spawnGr()" class="grass">Spawn Grass</button>
+		<button onclick="spawnGrEater()" class="grasseat">Spawn Grasseat</button>
+		<button onclick="spawnPr()" class="predator">Spawn Predator</button>
+		<button onclick="killGrEat()" class="grasseat">kill Grasseat</button>
+		<button onclick="killPr()" class="predator">kill Predator</button>
+	</div>
 </body>
+
 </html>
